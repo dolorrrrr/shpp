@@ -14,21 +14,23 @@ public class Assignment1Part3 extends SuperKarel {
      * розташовані чорні клітинки на шахівниці
      */
     public void run() throws Exception {
-        //makeVerticalLine();
         makeOddRows();
         goToStartOfEvenRows();
-        makeEvenRows();
+        //На випадок одного рядку
+        if(leftIsClear()) {
+            makeEvenRows();
+        }
     }
 
-    private void makeVerticalLine() throws Exception {
-
-    }
-
-    private void makeOddRows() throws Exception{
-        makeOddRow();
+    /**
+     * Передумова: Карел стоїть на початку першої непарної лінії, дивиться на схід
+     * Результат: Всі непарні лінії побудовано, Карел стоїть в північно-східному куті, дивиться на північ
+     */
+    private void makeOddRows() throws Exception {
+        makeRow();
         goBack();
         carefulStepForward();
-        if (frontIsClear()){
+        if (frontIsClear()) {
             move();
             turnRight();
             makeOddRows();
@@ -37,16 +39,16 @@ public class Assignment1Part3 extends SuperKarel {
 
 
     /**
-     * Передумови: Карел стоїть на початку непарного рядка, Дивиться на схід.
-     * Результат: Непарний рядок закінчені, Карел стоїть в кінці рядка, дивлячись на схід.
+     * Передумови: Карел стоїть на початку рядка, де починаються біпери. Дивиться на схід.
+     * Результат: Рядок закінчений, Карел стоїть в кінці рядка, дивлячись на схід.
      */
-    private void makeOddRow() throws Exception {
+    private void makeRow() throws Exception {
         putBeeper();
         carefulStepForward();
-        carefulStepForward();
-        if (frontIsClear()){
-            makeOddRow();
-        }//тут є проблема, якщо ширина непарна, то останній біпер він не кладе
+        if (frontIsClear()) {
+            move();
+            makeRow();
+        }
     }
 
     /**
@@ -54,7 +56,11 @@ public class Assignment1Part3 extends SuperKarel {
      * Результат: Карел стоїть на початку першого парного, дивиться на схід
      */
     private void goToStartOfEvenRows() throws Exception {
-
+        turnAround();
+        moveToTheWall();
+        turnAround();
+        carefulStepForward();
+        turnRight();
     }
 
     /**
@@ -62,29 +68,29 @@ public class Assignment1Part3 extends SuperKarel {
      * Результат: Всі парні рядки закінчені, Карел стоїть в кінці останнього, дивлячись на схід.
      */
     private void makeEvenRows() throws Exception {
-
-
-    }
-
-    /**
-     * Передумови: Карел стоїть на початку непарного ряду. Дивиться на схід.
-     * Результат: Ряд закінчений, Карел стоїть в кінці непарного ряду, дивиться на схід.
-     */
-    private void fillOddLine() throws Exception {
-        while (frontIsClear()) {
-            putBeeper();
+        makeEvenRow();
+        goBack();
+        carefulStepForward();
+        if (frontIsClear()) {
             move();
-            if (frontIsClear()) {
-                move();
-            }
+            turnRight();
+            makeEvenRows();
         }
     }
 
-    private void fillEvenLine() {
+    /**
+     * Передумова: Карел стоїть на початку парного рядка, тобто в першій клітинці не має бути біперів. Дивиться на схід
+     * Результат: Карел стоїть на кінці парного рядка, дивиться на схід
+     */
+    private void makeEvenRow() throws Exception {
+        if (frontIsClear()) {
+            move();
+            makeRow();
+        }
     }
 
     /**
-     * Передумови: Карел стоїть в кінці закінченого рядку (будь якого), дивиться на схід.
+     * Передумови: Карел стоїть в кінці закінченого рядка (будь якого), дивиться на схід.
      * Результат: Карел повернувся в початок ряду, дивиться на північ
      */
     private void goBack() throws Exception {
@@ -98,10 +104,8 @@ public class Assignment1Part3 extends SuperKarel {
      * Результат: Карел пройшов два кроки вперед, перевіряючи, чи немає стіни попереду. Дивиться на північ.
      */
     private void carefulStepForward() throws Exception {
-
         if (frontIsClear()) {
             move();
         }
-
     }
 }
