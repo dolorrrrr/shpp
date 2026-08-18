@@ -17,16 +17,25 @@ import com.shpp.p2p.cs.dbelinskyi.SuperKarel;
 public class Assignment1Part4 extends SuperKarel {
     public void run() throws Exception{
         cleanTheReactor();
+        if (noBeepersPresent()){
+            cleanElement();
+        }
     }
 
     private void cleanTheReactor() throws Exception{
-        if(noBeepersPresent()){
+        if(noBeepersPresent()){ //Якщо елемент тільки один
             cleanElement();
         }
-        move();
-        move();
+        carefulStepForward();
+        carefulStepForward();
         if (frontIsClear()){
             cleanTheReactor();
+        }
+    }
+
+    private void carefulStepForward() throws Exception{
+        if (frontIsClear()){
+            move();
         }
     }
 
