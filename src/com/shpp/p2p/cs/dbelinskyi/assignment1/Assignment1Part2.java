@@ -14,14 +14,12 @@ import com.shpp.p2p.cs.dbelinskyi.SuperKarel;
  * The world is as tall as it is wide, i.e. height > width.
  * It makes no sense where Karel is looking at the end of the level
  */
-public class Assignment1Part2 extends SuperKarel
-{
-    public void run() throws Exception
-    {
-        if (frontIsBlocked()) //Нестандартинй випадок, коли світ 1х1
+public class Assignment1Part2 extends SuperKarel {
+    public void run() throws Exception {
+        if (frontIsBlocked()) //A non-standard case when the world is 1x1
         {
             putBeeper();
-        } else //Для всіх інших випадків працює корректно
+        } else //For all other cases it works correctly
         {
             /**
              * The algorithm is as follows: we fill the southern row, collect all the beepers in one pile - this way we found out
@@ -45,10 +43,8 @@ public class Assignment1Part2 extends SuperKarel
      * Prerequisite: Karel is facing east, preparing to fill the line with beepers
      * Result: Karel is facing east, standing at the end of the line, i.e. in the southeast corner
      */
-    private void fillTheLine() throws Exception
-    {
-        while (frontIsClear())
-        {
+    private void fillTheLine() throws Exception {
+        while (frontIsClear()) {
             putBeeper();
             move();
         }
@@ -59,13 +55,10 @@ public class Assignment1Part2 extends SuperKarel
      * Prerequisite: Karel is facing east, at the end of the main line.
      * Result: All beepers are moved to one cell, Karel is standing on this cell and facing north
      */
-    private void removeAllBeepersAtTheOneCell() throws Exception
-    {
+    private void removeAllBeepersAtTheOneCell() throws Exception {
         turnAround();
-        while (frontIsClear())
-        {
-            if (beepersPresent())
-            {
+        while (frontIsClear()) {
+            if (beepersPresent()) {
                 takeBeeperAndTakeItToCell();
                 turnAround();
                 move();
@@ -80,8 +73,7 @@ public class Assignment1Part2 extends SuperKarel
      * Prerequisite: Karel is standing on the beeper, looking west
      * Result: Karel has taken the beeper to the right place, looking north
      */
-    private void takeBeeperAndTakeItToCell() throws Exception
-    {
+    private void takeBeeperAndTakeItToCell() throws Exception {
         pickBeeper();
         turnAround();
         moveToTheWall();
@@ -93,21 +85,17 @@ public class Assignment1Part2 extends SuperKarel
     /**
      * Prerequisite: Karel is standing on the cell with beepers to be divided, looking north
      * Result: Karel is standing in the same place he was at the beginning of the method.
-     *         The cell is divided - the parent cell is in front of him, the residual cell is
-     *         on the right side. Karel is looking south
+     * The cell is divided - the parent cell is in front of him, the residual cell is
+     * on the right side. Karel is looking south
      */
-    private void divideACell() throws Exception
-    {
+    private void divideACell() throws Exception {
         turnAround();
-        while (beepersPresent())
-        {
-            if (beepersPresent())
-            {
+        while (beepersPresent()) {
+            if (beepersPresent()) {
                 moveBeeperToOneStepForwardAndBack();
             }
             turnRight();
-            if (beepersPresent())
-            {
+            if (beepersPresent()) {
                 moveBeeperToOneStepForwardAndBack();
             }
             turnLeft();
@@ -118,8 +106,7 @@ public class Assignment1Part2 extends SuperKarel
      * Prerequisite: Karel is standing on a beeper, there is no wall in front of him.
      * Result: Karel moved one beeper forward and turned around, looking where he was looking at first
      */
-    private void moveBeeperToOneStepForwardAndBack() throws Exception
-    {
+    private void moveBeeperToOneStepForwardAndBack() throws Exception {
         pickBeeper();
         move();
         putBeeper();
@@ -130,8 +117,7 @@ public class Assignment1Part2 extends SuperKarel
      * Prerequisite: There is no wall behind Karel
      * Result: Karel took a step back, looking back where he was looking at first
      */
-    private void stepBack() throws Exception
-    {
+    private void stepBack() throws Exception {
         turnAround();
         move();
         turnAround();
@@ -141,12 +127,10 @@ public class Assignment1Part2 extends SuperKarel
      * Prerequisite: Karel is standing in front of a pile of beepers that needs to be moved to its place.Looks at them
      * Result: Karel has moved the entire pile of beepers to its place, looks where he was looking from the beginning
      */
-    private void removeDividedCellToStartCell() throws Exception
-    {
+    private void removeDividedCellToStartCell() throws Exception {
         move();
         turnAround();
-        while (beepersPresent())
-        {
+        while (beepersPresent()) {
             moveBeeperToOneStepForwardAndBack();
         }
         move();
@@ -157,12 +141,10 @@ public class Assignment1Part2 extends SuperKarel
      * Prerequisite: Karel is standing on the main divided pile, facing south
      * Result: Karel has cleared the remaining divided pile, is standing on its spot, facing west
      */
-    private void cleanUnnecessaryCell() throws Exception
-    {
+    private void cleanUnnecessaryCell() throws Exception {
         turnRight();
         move();
-        while (beepersPresent())
-        {
+        while (beepersPresent()) {
             pickBeeper();
         }
     }
@@ -171,8 +153,7 @@ public class Assignment1Part2 extends SuperKarel
      * Prerequisite: Karel is standing on the cleared cell, looking west
      * Result: Karel has come to the cell used as a variable. Looking west
      */
-    private void goToFatherCell() throws Exception
-    {
+    private void goToFatherCell() throws Exception {
         turnAround();
         move();
         turnRight();
@@ -182,10 +163,8 @@ public class Assignment1Part2 extends SuperKarel
      * Prerequisite: Karel stands on the main pile, facing south, preparing to fill the line until the beepers stop
      * Result: Karel has filled the main line halfway, returned to the place from which he started this method.
      */
-    private void fillTheLineFromFatherCell() throws Exception
-    {
-        while (beepersPresent())
-        {
+    private void fillTheLineFromFatherCell() throws Exception {
+        while (beepersPresent()) {
             removeOneBeeperAtLineFromCell();
             goBackToTheCell();
         }
@@ -195,13 +174,11 @@ public class Assignment1Part2 extends SuperKarel
      * Prerequisite: Karel stands on the main pile of beepers, looking south.
      * Result: Karel took one beeper to the first unoccupied cell on the main line. Looking west
      */
-    private void removeOneBeeperAtLineFromCell() throws Exception
-    {
+    private void removeOneBeeperAtLineFromCell() throws Exception {
         pickBeeper();
         move();
         turnRight();
-        while (beepersPresent())
-        {
+        while (beepersPresent()) {
             move();
         }
         putBeeper();
@@ -211,8 +188,7 @@ public class Assignment1Part2 extends SuperKarel
      * Prerequisite: Karel stands on the main line, where he placed the beeper, looking west.
      * Result: Karel has returned to the main cluster of beepers, looking south.
      */
-    private void goBackToTheCell()  throws Exception
-    {
+    private void goBackToTheCell() throws Exception {
         turnAround();
         moveToTheWall();
         turnLeft();
@@ -224,8 +200,7 @@ public class Assignment1Part2 extends SuperKarel
      * Prerequisite: Karel is standing in the place of the main pile, which has already been dismantled. Looking south
      * Result: Karel has removed all the beepers except the central one. Standing in the southeast corner, looking east. Program finale.
      */
-    private void cleanUnnecessaryBeepers() throws Exception
-    {
+    private void cleanUnnecessaryBeepers() throws Exception {
         goToTheCenter();
         pickAllBeepersInFront();
     }
@@ -234,12 +209,10 @@ public class Assignment1Part2 extends SuperKarel
      * Prerequisite: Karel is standing on the main disassembled pile, facing south.
      * Result: Karel is standing on the central beeper, facing east
      */
-    private void goToTheCenter() throws Exception
-    {
+    private void goToTheCenter() throws Exception {
         move();
         turnRight();
-        while (beepersPresent())
-        {
+        while (beepersPresent()) {
             move();
         }
         turnAround();
@@ -249,12 +222,10 @@ public class Assignment1Part2 extends SuperKarel
     /**
      * Prerequisite: Karel is standing on the central beeper, facing east
      * Result: Karel has removed all the beepers except the central one on the line, that is, the ones that were in front of him.
-     *         He is in the southeast corner, facing east. Program Finale
+     * He is in the southeast corner, facing east. Program Finale
      */
-    private void pickAllBeepersInFront() throws Exception
-    {
-        while (frontIsClear())
-        {
+    private void pickAllBeepersInFront() throws Exception {
+        while (frontIsClear()) {
             move();
             pickBeeper();
         }

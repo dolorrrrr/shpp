@@ -44,7 +44,7 @@ public class SuperKarel extends KarelTheRobot
         }
     }
 
-    //----------ІНШІ БАЗОВІ КОМАНДИ----------
+    //----------OTHER BASIC COMMANDS----------
     //Prerequisite: none
     //Result: Karel stopped in front of the wall
     public void moveToTheWall() throws Exception

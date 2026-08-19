@@ -4,36 +4,36 @@ import com.shpp.p2p.cs.dbelinskyi.SuperKarel;
 
 public class Assignment1Part3 extends SuperKarel {
     /**
-     * Задача 3 - Шахова дошка
-     * ПРЯМОКУТНИК - ЦЕ НЕ ТІЛЬКИ КВАДРАТ
-     * Один з поставлених біперів має знаходитись в південно-західному куті карти
-     * Карел стартує з південно-західного кута, дивиться на схід
-     * Довжина або ширина може бути 1
-     * Не обов'язково вигадувати якусь круту оптимізацію
-     * Основна задача - це розмістити біпери так, як
-     * розташовані чорні клітинки на шахівниці
+     * Problem 3 - Chessboard
+     * A RECTANGLE IS NOT JUST A SQUARE
+     * One of the placed beepers must be in the southwest corner of the map
+     * Karel starts from the southwest corner, looking east
+     * Length or width can be 1
+     * It is not necessary to invent some cool optimization
+     * The main task is to place the beepers in the way
+     * the black squares on the chessboard are located
      */
     public void run() throws Exception {
-         //Спочатку робимо непарні лінії, тобто ті, де на початку має лежати біпер
-         //Після цього переходимо до початку парних ліній, тих де на початку не має бути біперу.
+        //First we make the odd lines, that is, the ones where the beeper should be at the beginning
+        //After that, we move to the beginning of the even lines, those where there should not be a beeper at the beginning.
         makeOddRows();
         goToStartOfEvenRows();
-        //leftIsClear() на випадок одного рядку
-        //noBeepersPresent() на випадок двух
+        //leftIsClear() for one line
+        //noBeepersPresent() for two lines
         if (leftIsClear() || noBeepersPresent()) {
             makeEvenRows();
         }
     }
 
     /**
-     * Передумова: Карел стоїть на початку першої непарної лінії, дивиться на схід
-     * Результат: Всі непарні лінії побудовано, Карел стоїть в північно-східному куті, дивиться на північ
+     * Prerequisite: Karel stands at the beginning of the first odd line, looking east
+     * Result: All odd lines are built, Karel stands in the northeast corner, looking north
      */
     private void makeOddRows() throws Exception {
-        //Робимо рядок, повертаємось дивлячись на північ
-        //Якщо стіни немає, йдемо вперед
-        //Ще раз перевіряємо чи немає стіни, як ні - йдемо вперед, повертаємо направо
-        // і запускаємо цю функцію знову
+        //Make a line, turn around looking north
+        //If there is no wall, go forward
+        //Check again if there is no wall, if not - go forward, turn right
+        // and run this function again
         makeRow();
         goBack();
         carefulStepForward();
@@ -46,13 +46,13 @@ public class Assignment1Part3 extends SuperKarel {
 
 
     /**
-     * Передумови: Карел стоїть на початку рядка, де починаються біпери. Дивиться на схід.
-     * Результат: Рядок закінчений, Карел стоїть в кінці рядка, дивлячись на схід.
+     * Prerequisites: Karel is standing at the beginning of the line, where the beepers begin. He is looking east.
+     * Result: The line is complete, Karel is standing at the end of the line, looking east.
      */
     private void makeRow() throws Exception {
-        //Цей метод використовується тільки коли Карел стоїть на місці, де має бути біпер
-        //Кладемо біпер, з перевіркою стіни попереду йдемо вперед
-        //Знову перевіряємо стіну, якщо немає, то запускаємо цю функцію знову
+        //This method is used only when Karel is standing where the beeper should be
+        //We put the beeper, checking the wall in front of us, we move forward
+        //We check the wall again, if not, we run this function again
         putBeeper();
         carefulStepForward();
         if (frontIsClear()) {
@@ -62,13 +62,13 @@ public class Assignment1Part3 extends SuperKarel {
     }
 
     /**
-     * Передумови: Карел стоїть в кінці останнього непарного, дивиться на схід
-     * Результат: Карел стоїть на початку першого парного, дивиться на схід
+     * Prerequisites: Karel stands at the end of the last odd, facing east
+     * Result: Karel stands at the beginning of the first even, facing east
      */
     private void goToStartOfEvenRows() throws Exception {
-        //Тут просто після того, як зробили непарні лінії, йдемо до початку парних
-        //і повертаємось направо.
-        //Також важливо використовувати обережний рух, на випадок, якщо на карті лише один рядок
+        //Here, after we have made the odd lines, we go to the beginning of the even ones
+        //and turn right.
+        //It is also important to use careful movement, in case there is only one line on the map
         turnAround();
         moveToTheWall();
         turnAround();
@@ -77,13 +77,13 @@ public class Assignment1Part3 extends SuperKarel {
     }
 
     /**
-     * Передумови: Карел стоїть на початку першого парного рядка, тобто на другому, дивиться на схід.
-     * Результат: Всі парні рядки закінчені, Карел стоїть в кінці останнього, дивлячись на схід.
+     * Prerequisites: Karel stands at the beginning of the first even line, that is, on the second, looking east.
+     * Result: All even lines are complete, Karel stands at the end of the last one, looking east.
      */
     private void makeEvenRows() throws Exception {
-        //Тут майже те ж саме, що з функцією makeOddRows. Але відмінність в тому, що
-        //ми вже не можемо просто використовувати makeRow(). Тут кожного разу ще потрібно
-        //відступати вперед, це вже інший метод тут використовується, тому й цей метод інший
+        //This is almost the same as with the makeOddRows function. But the difference is that
+        //we can no longer simply use makeRow(). Here, each time you need to
+        //step forward, this is a different method used here, so this method is different
         makeEvenRow();
         goBack();
         carefulStepForward();
@@ -95,11 +95,11 @@ public class Assignment1Part3 extends SuperKarel {
     }
 
     /**
-     * Передумова: Карел стоїть на початку парного рядка, тобто в першій клітинці не має бути біперів. Дивиться на схід
-     * Результат: Карел стоїть на кінці парного рядка, дивиться на схід
+     * Precondition: Karel is standing at the beginning of the even line, i.e. there should be no beepers in the first cell. Looking east
+     * Result: Karel is standing at the end of the even line, looking east
      */
     private void makeEvenRow() throws Exception {
-        //Те ж саме, що й makeRow, але з рухом вперед
+        //Same as makeRow, but moving forward
         if (frontIsClear()) {
             move();
             makeRow();
@@ -107,8 +107,8 @@ public class Assignment1Part3 extends SuperKarel {
     }
 
     /**
-     * Передумови: Карел стоїть в кінці закінченого рядка (будь якого), дивиться на схід.
-     * Результат: Карел повернувся в початок ряду, дивиться на північ
+     * Prerequisites: Karel is standing at the end of a completed row (any row), facing east.
+     * Result: Karel has returned to the beginning of the row, facing north
      */
     private void goBack() throws Exception {
         turnAround();
@@ -117,8 +117,8 @@ public class Assignment1Part3 extends SuperKarel {
     }
 
     /**
-     * Передумови: Карел стоїть на початку закінченого ряду. Дивиться на північ
-     * Результат: Карел пройшов два кроки вперед, перевіряючи, чи немає стіни попереду. Дивиться на північ.
+     * Prerequisites: Karel is standing at the beginning of a completed row. Looking north
+     * Result: Karel has taken two steps forward, checking for a wall ahead. Looking north.
      */
     private void carefulStepForward() throws Exception {
         if (frontIsClear()) {
