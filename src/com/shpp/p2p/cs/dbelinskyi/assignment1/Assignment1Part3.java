@@ -1,7 +1,5 @@
 package com.shpp.p2p.cs.dbelinskyi.assignment1;
 
-import com.shpp.p2p.cs.dbelinskyi.SuperKarel;
-
 public class Assignment1Part3 extends SuperKarel {
     /**
      * Problem 3 - Chessboard

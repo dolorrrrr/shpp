@@ -1,7 +1,5 @@
 package com.shpp.p2p.cs.dbelinskyi.assignment1;
 
-import com.shpp.p2p.cs.dbelinskyi.SuperKarel;
-
 /**
  * Задача 4 - Ядерний реактор
  * Основна задача - очистити елементи де немає центрального біпера

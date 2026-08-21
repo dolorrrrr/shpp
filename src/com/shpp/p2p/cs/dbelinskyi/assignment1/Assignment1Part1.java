@@ -1,7 +1,5 @@
 package com.shpp.p2p.cs.dbelinskyi.assignment1;
 
-import com.shpp.p2p.cs.dbelinskyi.SuperKarel;
-
 /**
  * Task 1 - Rows of pebbles
  * Each column must become complete

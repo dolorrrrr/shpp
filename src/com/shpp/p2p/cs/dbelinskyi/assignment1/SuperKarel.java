@@ -1,4 +1,4 @@
-package com.shpp.p2p.cs.dbelinskyi;
+package com.shpp.p2p.cs.dbelinskyi.assignment1;
 
 import com.shpp.karel.KarelTheRobot;
 

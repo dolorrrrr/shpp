@@ -1,7 +1,5 @@
 package com.shpp.p2p.cs.dbelinskyi.assignment1;
 
-import com.shpp.p2p.cs.dbelinskyi.SuperKarel;
-
 /**
  * Problem 2 - finding the middle
  * Final view of the level - 1 beeper in the middle of the south strip
