@@ -15,30 +15,45 @@ public class DrawChessboard extends WindowProgram {
         drawCheckerBoard(CIRCLES_COUNT_IN_COL, CIRCLES_COUNT_IN_ROW);
     }
 
+    /**
+     * Передумова: Пустий білий канвас, нічого немає на ньому
+     * Результат: Намальована шахівниця, розмір задається аргументами (рядки, стовпці)
+     */
     private void drawCheckerBoard(int rows, int cols) {
         for (int i = 0; i < rows; i++) {
             drawCheckerBoardRow(i, cols);
-            //blackOrNot = reverseColor(blackOrNot);
-
         }
     }
 
-
+    /**
+     * Передумова: Початок ітерації. Треба намалювати один ряд
+     * Результат: Ряд намальований
+     */
     private void drawCheckerBoardRow(int rowNumber, int cols) {
         for (int i = 0; i < cols; i++) {
             drawCheckBoardItem(rowNumber, i);
         }
     }
 
+    /**
+     *Малює один єдиний елемент - клітинку протягом циклу
+     * Може бути як чорним, так і білим
+     */
     private void drawCheckBoardItem(int rowNumber, int colNumber) {
-        GRect r = new GRect(
-                colNumber * ITEM_SIZE,
-                rowNumber * ITEM_SIZE,
-                ITEM_SIZE, ITEM_SIZE);
+        GRect r = new GRect(colNumber * ITEM_SIZE, rowNumber * ITEM_SIZE, ITEM_SIZE, ITEM_SIZE);
         r.setFilled(true);
-        boolean isCellBlack = (rowNumber + colNumber) % 2 == 0;
-        r.setFillColor(isCellBlack ? Color.BLACK : Color.CYAN);
+        setFillWhiteOrBlack(rowNumber, colNumber, r);
         r.setColor(Color.RED);
         add(r);
+    }
+
+    /**
+     * Обирає потрібний колір під час малювання, базуючись на сумі індексів клітинок.
+     * Якщо сума парна - клітинка має бути чорною
+     * Нічого не повертає, просто обирає потрібний колір
+     */
+    private void setFillWhiteOrBlack(int rowNumber, int colNumber, GRect rectangle) {
+        boolean isCellBlack = (rowNumber + colNumber) % 2 == 0;
+        rectangle.setFillColor(isCellBlack ? Color.BLACK : Color.CYAN);
     }
 }
