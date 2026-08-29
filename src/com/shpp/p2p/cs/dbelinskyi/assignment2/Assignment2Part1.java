@@ -1,57 +1,60 @@
 package com.shpp.p2p.cs.dbelinskyi.assignment2;
 
-import acm.graphics.GRect;
-import com.shpp.cs.a.graphics.WindowProgram;
+import com.shpp.cs.a.console.TextProgram;
 
-import java.awt.*;
+import static java.lang.Math.*;
 
-public class Assignment2Part1 extends WindowProgram {
-
-    private static final int ITEM_SIZE= 40;
-    private static final int CIRCLES_COUNT_IN_COL = 8;
-    private static final int CIRCLES_COUNT_IN_ROW = 8;
-
+public class Assignment2Part1 extends TextProgram {
+    /*
+    Маємо на вхід три числа - коефіцієнти квадратного рівняння
+    Квадратне рівняння має вигляд a * (x^2) + b*x + c = 0
+    Рішення:
+    1. Отримуємо три числа користувача
+    2. Знаходимо дискримінант, формула - b^2 - 4ac
+    3. Розгалужуємо на три випадки:
+    3.1 Дискримінант більше ніж 0 - два корені, формула -b +- sqrt(D) / 2a
+    3.2 Дискримінант дорівнює нулю - один корінь, формула -b / 2a
+    3.3 Дискримінант менше ніж нуль - коренів немає, формула sqrt(-1) / 0
+    4. Виводимо результат
+     */
     public void run() {
-        drawCheckerBoard(CIRCLES_COUNT_IN_COL, CIRCLES_COUNT_IN_ROW);
+        double userNumberA = readDouble("Input number a: ");
+        double userNumberB = readDouble("Input number b: ");
+        double userNumberC = readDouble("Input number c: ");
+
+        printAnswer(userNumberA, userNumberB, userNumberC);
     }
 
-    private void drawCheckerBoard(int rows, int cols) {
-        boolean blackOrNot = true;
-        for (int i = 0; i < rows; i++){
-            drawCheckerBoardRow(i, cols, blackOrNot);
-            blackOrNot = reverseColor(blackOrNot);
+    /**
+     * Знаходить дискримінант, вирішує рівняння, виводить результат
+     * Передумова: на вхід подається три числа - коефіцієнти рівняння
+     * Результат: рішення квадратного рівняння виведено в консоль
+     */
+    private void printAnswer(double numA, double numB, double numC) {
+        double discriminant = getDiscriminant(numA, numB, numC);
 
-        }
-    }
-
-
-
-    private void drawCheckerBoardRow(int rowNumber, int cols, boolean blackOrNot) {
-        for (int i = 0; i < cols; i++){
-            drawCheckBoardItem(rowNumber, i, blackOrNot);
-            blackOrNot = reverseColor(blackOrNot);
-        }
-    }
-
-
-    private boolean reverseColor(boolean blackOrNot) {
-        if (blackOrNot){
-            return blackOrNot = false;
+        if (discriminant > 0) {
+            double root1 = ((-numB) + sqrt(discriminant)) / (2 * numA);
+            double root2 = ((-numB) - sqrt(discriminant)) / (2 * numA);
+            println("There are two roots: " + root1 + " and " + root2);
+        } else if (discriminant == 0) {
+            double root1 = (-numB) / (2 * numA);
+            println("There is one root: " + (root1));
 
         } else {
-            return blackOrNot = true;
+            println("There is no real roots");
         }
+
     }
 
-
-    private void drawCheckBoardItem(int rowNumber, int colNumber, boolean blackOrNot) {
-        GRect r = new GRect(
-                colNumber*ITEM_SIZE,
-                rowNumber*ITEM_SIZE,
-                ITEM_SIZE, ITEM_SIZE);
-        r.setFilled(true);
-        r.setFillColor(blackOrNot ? Color.BLACK : Color.WHITE);
-        r.setColor(Color.BLACK);
-        add(r);
+    /**
+     * Приймає три коефіцієнти квадратного рівняння і знаходить дискримінант.
+     * Формула дискримінанта: b^2-4ac
+     * Передумова: на вхід подається три числа - коефіцієнти квадратного рівняння
+     * Результат: на вихід подає дискримінант
+     */
+    private double getDiscriminant(double numA, double numB, double numC) {
+        return pow(numB, 2) - (4 * numA * numC);
     }
 }
+
