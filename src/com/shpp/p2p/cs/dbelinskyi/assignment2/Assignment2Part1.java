@@ -1,32 +1,60 @@
 package com.shpp.p2p.cs.dbelinskyi.assignment2;
 
-import acm.graphics.*;
-import com.shpp.cs.a.graphics.WindowProgram;
+import com.shpp.cs.a.console.TextProgram;
 
-import java.awt.*;
+import static java.lang.Math.*;
 
-public class Assignment2Part1 extends WindowProgram {
-
+public class Assignment2Part1 extends TextProgram {
+    /*
+    Маємо на вхід три числа - коефіцієнти квадратного рівняння
+    Квадратне рівняння має вигляд a * (x^2) + b*x + c = 0
+    Рішення:
+    1. Отримуємо три числа користувача
+    2. Знаходимо дискримінант, формула - b^2 - 4ac
+    3. Розгалужуємо на три випадки:
+    3.1 Дискримінант більше ніж 0 - два корені, формула -b +- sqrt(D) / 2a
+    3.2 Дискримінант дорівнює нулю - один корінь, формула -b / 2a
+    3.3 Дискримінант менше ніж нуль - коренів немає, формула sqrt(-1) / 0
+    4. Виводимо результат
+     */
     public void run() {
-        int r = 50;
-        int d = r * 2;
-        int x = getWidth() / 2 - r;
-        int y = getHeight() / 2 - (d * 3 / 2);
-        GOval c1 = createCircle(Color.RED, x, y, r);
-        add(c1);
-        GRectangle boundsOfKolo1 = c1.getBounds();
-        add(createCircle(Color.YELLOW, boundsOfKolo1.getX(), boundsOfKolo1.getY() + (r * 2), r));
-        add(createCircle(Color.GREEN, x, y + (r * 2) + (r * 2), r));
+        double userNumberA = readDouble("Input number a: ");
+        double userNumberB = readDouble("Input number b: ");
+        double userNumberC = readDouble("Input number c: ");
+
+        printAnswer(userNumberA, userNumberB, userNumberC);
     }
 
-    private GOval createCircle(Color color, double x, double y, double r) {
-        GOval res = new GOval(x, y, r * 2, r * 2);
-        fillObject(res, color);
-        return res;
+    /**
+     * Знаходить дискримінант, вирішує рівняння, виводить результат
+     * Передумова: на вхід подається три числа - коефіцієнти рівняння
+     * Результат: рішення квадратного рівняння виведено в консоль
+     */
+    private void printAnswer(double numA, double numB, double numC) {
+        double discriminant = getDiscriminant(numA, numB, numC);
+
+        if (discriminant > 0) {
+            double root1 = ((-numB) + sqrt(discriminant)) / (2 * numA);
+            double root2 = ((-numB) - sqrt(discriminant)) / (2 * numA);
+            println("There are two roots: " + root1 + " and " + root2);
+        } else if (discriminant == 0) {
+            double root1 = (-numB) / (2 * numA);
+            println("There is one root: " + (root1));
+
+        } else {
+            println("There is no real roots");
+        }
+
     }
 
-    private void fillObject(GFillable obj, Color color) {
-        obj.setFillColor(color);
-        obj.setFilled(true);
+    /**
+     * Приймає три коефіцієнти квадратного рівняння і знаходить дискримінант.
+     * Формула дискримінанта: b^2-4ac
+     * Передумова: на вхід подається три числа - коефіцієнти квадратного рівняння
+     * Результат: на вихід подає дискримінант
+     */
+    private double getDiscriminant(double numA, double numB, double numC) {
+        return pow(numB, 2) - (4 * numA * numC);
     }
 }
+
