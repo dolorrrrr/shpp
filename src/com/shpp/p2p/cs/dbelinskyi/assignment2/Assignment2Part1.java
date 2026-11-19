@@ -27,8 +27,9 @@ public class Assignment2Part1 extends TextProgram {
 
     /**
      * Знаходить дискримінант, вирішує рівняння, виводить результат
-     * Передумова: на вхід подається три числа - коефіцієнти рівняння
+     * Передумова: на вхід подається три числа типу double - коефіцієнти рівняння
      * Результат: рішення квадратного рівняння виведено в консоль
+     *
      */
     private void printAnswer(double numA, double numB, double numC) {
         double discriminant = getDiscriminant(numA, numB, numC);
@@ -41,8 +42,10 @@ public class Assignment2Part1 extends TextProgram {
             double root1 = (-numB) / (2 * numA);
             println("There is one root: " + (root1));
 
-        } else {
+        } else if (discriminant < 0){
             println("There is no real roots");
+        } else { // Для випадку, якщо дискримінант NaN або infinity
+            println("Incorrect numbers, please, try the others");
         }
 
     }
@@ -50,11 +53,13 @@ public class Assignment2Part1 extends TextProgram {
     /**
      * Приймає три коефіцієнти квадратного рівняння і знаходить дискримінант.
      * Формула дискримінанта: b^2-4ac
-     * Передумова: на вхід подається три числа - коефіцієнти квадратного рівняння
-     * Результат: на вихід подає дискримінант
+     * Передумова: на вхід подається три числа типу double - коефіцієнти квадратного рівняння
+     * Результат: на вихід подає дискримінант типу double
      */
     private double getDiscriminant(double numA, double numB, double numC) {
-        return pow(numB, 2) - (4 * numA * numC);
+        double discriminant =  pow(numB, 2) - (4 * numA * numC);
+        println("Discriminant = " + discriminant);
+        return discriminant;
     }
 }
 
