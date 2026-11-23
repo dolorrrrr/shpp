@@ -7,8 +7,7 @@ public class MyTextProgram extends TextProgram {
     private static final int STOP_NUMBER = 0;
 
     public void run() {
-        for(double i = 0; i < 1; i += 0.1){
-            println("sin "+i+" = " +Math.sin(i));
-        }
+        int numb = 2147483647+2147483647+2;
+        println(numb);
     }
 }
