@@ -1,7 +1,10 @@
 package com.shpp.p2p.cs.dbelinskyi.assignment2;
 
 import acm.graphics.GOval;
+import acm.graphics.GRect;
 import com.shpp.cs.a.graphics.WindowProgram;
+
+import java.awt.*;
 
 
 public class Assignment2Part3 extends WindowProgram {
@@ -55,7 +58,30 @@ public class Assignment2Part3 extends WindowProgram {
     void drawPaw(double x, double y) {
         // here is your turn to type some code!!
 
-        GOval o = new GOval(0, 0, 200,200);
-        add(o);
+        GRect backgroundOfOnePaw = new GRect(x, y, TOE_WIDTH + TOE_WIDTH + HEEL_WIDTH, (TOE_WIDTH * 2) + HEEL_HEIGHT);
+        //backgroundOfOnePaw.setColor(Color.WHITE);
+        add(backgroundOfOnePaw);
+
+        createToes(backgroundOfOnePaw);
+        createHeel(backgroundOfOnePaw);
+
     }
+    private void createToes(GRect background){
+        drawToe(FIRST_TOE_OFFSET_X, FIRST_TOE_OFFSET_Y, background);
+        drawToe(SECOND_TOE_OFFSET_X, SECOND_TOE_OFFSET_Y, background);
+        drawToe(THIRD_TOE_OFFSET_X, THIRD_TOE_OFFSET_Y, background);
+    }
+
+    private void createHeel(GRect background) {
+        GOval heel = new GOval(background.getX() + HEEL_OFFSET_X, background.getY() + HEEL_OFFSET_Y, HEEL_WIDTH, HEEL_HEIGHT);
+        heel.setFilled(true);
+        add(heel);
+    }
+
+    private void drawToe(double x,  double y, GRect background){
+        GOval toe = new GOval(background.getX() + x, background.getY() + y, TOE_WIDTH, TOE_HEIGHT);
+        toe.setFilled(true);
+        add(toe);
+    }
+
 }
