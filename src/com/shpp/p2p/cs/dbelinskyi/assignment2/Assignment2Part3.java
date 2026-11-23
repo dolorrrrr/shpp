@@ -58,9 +58,10 @@ public class Assignment2Part3 extends WindowProgram {
     void drawPaw(double x, double y) {
         // here is your turn to type some code!!
 
+        //Створимо невидимий квадрат, який буде працювати фоном для всієї лапи
         GRect backgroundOfOnePaw = new GRect(x, y, TOE_WIDTH + TOE_WIDTH + HEEL_WIDTH, (TOE_WIDTH * 2) + HEEL_HEIGHT);
         //backgroundOfOnePaw.setColor(Color.WHITE);
-        add(backgroundOfOnePaw);
+        //add(backgroundOfOnePaw); //Виявляється його можна навіть не додавати. Ну а навіщо, якщо ми його то створили і просто використовуємо його координати
 
         createToes(backgroundOfOnePaw);
         createHeel(backgroundOfOnePaw);
