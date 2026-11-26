@@ -58,28 +58,51 @@ public class Assignment2Part3 extends WindowProgram {
     void drawPaw(double x, double y) {
         // here is your turn to type some code!!
 
-        //Створимо невидимий квадрат, який буде працювати фоном для всієї лапи
+        //Створимо невидимий квадрат, який буде працювати фоном для однієї лапи, додавати його на екран не обов'язково, нам треба суто його координати
         GRect backgroundOfOnePaw = new GRect(x, y, TOE_WIDTH + TOE_WIDTH + HEEL_WIDTH, (TOE_WIDTH * 2) + HEEL_HEIGHT);
-        //backgroundOfOnePaw.setColor(Color.WHITE);
-        //add(backgroundOfOnePaw); //Виявляється його можна навіть не додавати. Ну а навіщо, якщо ми його то створили і просто використовуємо його координати
 
+        //Створюємо пальці лап
         createToes(backgroundOfOnePaw);
+        //Створюємо п'яту
         createHeel(backgroundOfOnePaw);
 
     }
-    private void createToes(GRect background){
+
+    /**
+     * Створює три пальці лапи
+     * Передумови: Створено площину, відносно якої мають бути розташовано пальці, їх координати задано константами
+     * Результат: На екрані додано три пальці лапи
+     *
+     * @param background Передає координати площини, відносно якої мають бути розташовані фігури
+     */
+    private void createToes(GRect background) {
         drawToe(FIRST_TOE_OFFSET_X, FIRST_TOE_OFFSET_Y, background);
         drawToe(SECOND_TOE_OFFSET_X, SECOND_TOE_OFFSET_Y, background);
         drawToe(THIRD_TOE_OFFSET_X, THIRD_TOE_OFFSET_Y, background);
     }
 
+    /**
+     * Створює п'яту лапи
+     * Передумови: Створено площину, відносно якої має бути розташована п'ята, її координати задано константами
+     *
+     * @param background Передає координати площини, відносно якої мають бути розташовані фігури
+     */
     private void createHeel(GRect background) {
         GOval heel = new GOval(background.getX() + HEEL_OFFSET_X, background.getY() + HEEL_OFFSET_Y, HEEL_WIDTH, HEEL_HEIGHT);
         heel.setFilled(true);
         add(heel);
     }
 
-    private void drawToe(double x,  double y, GRect background){
+    /**
+     * Створює один палець і додає його на екран
+     * Передумова: Створено площину, відносно якої має бути розташована фігура. На вхід подано координати фігури і саму площину.
+     * Результат: Створено один палець за заданими аргументами
+     *
+     * @param x Координата пальця по осі х відносно створеної площини background
+     * @param y Координата пальця по осі х відносно створеної площини background
+     * @param background Передає координати площини, відносно якої мають бути розташовані фігури
+     */
+    private void drawToe(double x, double y, GRect background) {
         GOval toe = new GOval(background.getX() + x, background.getY() + y, TOE_WIDTH, TOE_HEIGHT);
         toe.setFilled(true);
         add(toe);
