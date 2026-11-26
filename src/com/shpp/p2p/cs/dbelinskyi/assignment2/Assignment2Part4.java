@@ -19,7 +19,17 @@ public class Assignment2Part4 extends WindowProgram {
     //Визначає кількість кольорів
     private static final double NUMBER_OF_COLORS = 3;
 
+    //Визначає шрифт і розмір надпису
     private static final String FONT = "Roboto-35";
+
+    //Константи кольорів, які будуть використовуватись в прапорі
+    private static final Color FIRST_COLOR = new Color(0, 255, 247);
+    private static final Color SECOND_COLOR = new Color(36, 145, 142);
+    private static final Color THIRD_COLOR = new Color(65, 128, 126);
+
+    //Визначає назву країни, якою буде підписаний прапор в формі (Flag of ...)
+    private static final String COUNTRY = "Nothing";
+
     /**
      * Задача 4 - Прапори
      * Потрібно створити відцентрований прапор, який складається з трьох вертикальних кольорів
@@ -50,12 +60,15 @@ public class Assignment2Part4 extends WindowProgram {
 
         //Створення форми прапору, потрібна, щоб правильно розташовувати в ній зафарбовані частини
         GRect flagBackground = new GRect(flagCoordinateX, flagCoordinateY, FLAG_WIDTH, FLAG_HEIGHT);
+        add(flagBackground);
 
         //Виконуємо метод makePartOfFlag стільки ж разів, скільки кольорів в прапорі (хоч в умові чітко вказано тільки
         // три кольори, я зробив так, щоб кількість була регульованою)
         for (int i = 0; i < NUMBER_OF_COLORS; i++) {
             makePartOfFlag(i, flagBackground);
         }
+
+        add(flagBackground); //З рамкою мені здається буде краще. Та і на випадок, якщо один із кольорів - білий
     }
 
     /**
@@ -65,7 +78,7 @@ public class Assignment2Part4 extends WindowProgram {
      */
     private void createNameOfCountry() {
         //Спочатку просто створюємо надпис і його шрифт і тільки після цього задаємо його розташування
-        GLabel nameOfCountry = new GLabel("Flag of Belgium");
+        GLabel nameOfCountry = new GLabel("Flag of " + COUNTRY);
         nameOfCountry.setFont(FONT);
         //Координата Х = ширина вікна - ширина надпису
         //Координата Y = висота вікна - НИЖНЯ ширина надпису
@@ -89,7 +102,7 @@ public class Assignment2Part4 extends WindowProgram {
         // Створення частини прапора
         GRect flagPart = new GRect(coordinateXForFlagPart, flag.getY(), widthOfFlagPart, FLAG_HEIGHT);
         flagPart.setFilled(true);
-        setColorOfFlagPart(numberOfPart, flagPart); //Так як кольори також різні залежно від номеру прапора, цей метод окремо зафарбовує частину прапора
+        setColorOfFlagPart(numberOfPart, flagPart); //Так, як кольори також різні, залежно від номера прапора, цей метод окремо зафарбовує частину прапора
 
         add(flagPart);
     }
@@ -106,16 +119,16 @@ public class Assignment2Part4 extends WindowProgram {
         //Нумерація від 0, залежно від частини прапору обирається потрібний колір
         switch (numberOfPart) {
             case (0):
-                flagPart.setColor(Color.BLACK);
-                flagPart.setFillColor(Color.BLACK);
+                flagPart.setColor(FIRST_COLOR);
+                flagPart.setFillColor(FIRST_COLOR);
                 break;
             case (1):
-                flagPart.setColor(Color.YELLOW);
-                flagPart.setFillColor(Color.YELLOW);
+                flagPart.setColor(SECOND_COLOR);
+                flagPart.setFillColor(SECOND_COLOR);
                 break;
             case (2):
-                flagPart.setColor(Color.RED);
-                flagPart.setFillColor(Color.RED);
+                flagPart.setColor(THIRD_COLOR);
+                flagPart.setFillColor(THIRD_COLOR);
                 break;
         }
     }
